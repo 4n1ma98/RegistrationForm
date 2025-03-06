@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
   styleUrl: './numberboxc.component.css',
 })
 export class NumberboxcComponent {
-  @Input() control: FormControl = new FormControl('');
+  @Input() labelText: string = '';
+  @Input() control: FormControl = new FormControl(0);
   @Input() error: boolean = false;
 }

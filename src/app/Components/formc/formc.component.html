@@ -26,6 +26,14 @@
           registrationForm.get('tipoDocumento')!.touched
         "
       ></app-comboboxc>
+      <app-numberboxc
+        labelText="Numero Documento"
+        [control]="numDocumentoControl"
+        [error]="
+          registrationForm.get('numDocumento')!.invalid &&
+          registrationForm.get('numDocumento')!.touched
+        "
+      ></app-numberboxc>
       <app-datepickerc
         [control]="fechaNacimientoControl"
         [error]="
@@ -34,6 +42,7 @@
         "
       ></app-datepickerc>
       <app-numberboxc
+        labelText="Valor a Ganar"
         [control]="valorGanarControl"
         [error]="
           registrationForm.get('valorGanar')!.invalid &&

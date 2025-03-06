@@ -20,6 +20,7 @@ export class FormcComponent {
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       tipoDocumento: ['', Validators.required],
+      numDocumento: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       fechaNacimiento: ['', Validators.required],
       valorGanar: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
       casado: [false],
@@ -36,6 +37,10 @@ export class FormcComponent {
 
   get tipoDocumentoControl(): FormControl {
     return this.registrationForm.get('tipoDocumento') as FormControl;
+  }
+
+  get numDocumentoControl(): FormControl {
+    return this.registrationForm.get('numDocumento') as FormControl;
   }
 
   get fechaNacimientoControl(): FormControl {
