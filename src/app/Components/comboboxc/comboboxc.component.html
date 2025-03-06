@@ -1,0 +1,12 @@
+<div class="mb-4">
+  <label class="form-label">{{ labelText }}</label>
+  <select
+    class="form-select"
+    [formControl]="control"
+    [class.is-invalid]="error"
+  >
+    <option selected>Seleccione el tipo</option>
+    <option value="1">CC</option>
+    <option value="2">CE</option>
+  </select>
+</div>

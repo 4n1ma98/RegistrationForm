@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header text-center"><b>Formulario de Registro</b></div>
+  <div class="card-body p-4">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-textboxc
+        labelText="Nombre(s)"
+        [control]="nombresControl"
+        [error]="
+          registrationForm.get('nombres')!.invalid &&
+          registrationForm.get('nombres')!.touched
+        "
+      ></app-textboxc>
+      <app-textboxc
+        labelText="Apellidos"
+        [control]="apellidosControl"
+        [error]="
+          registrationForm.get('apellidos')!.invalid &&
+          registrationForm.get('apellidos')!.touched
+        "
+      ></app-textboxc>
+      <app-comboboxc
+        labelText="Tipo Documento"
+        [control]="tipoDocumentoControl"
+        [error]="
+          registrationForm.get('tipoDocumento')!.invalid &&
+          registrationForm.get('tipoDocumento')!.touched
+        "
+      ></app-comboboxc>
+      <app-datepickerc
+        [control]="fechaNacimientoControl"
+        [error]="
+          registrationForm.get('fechaNacimiento')!.invalid &&
+          registrationForm.get('fechaNacimiento')!.touched
+        "
+      ></app-datepickerc>
+      <app-numberboxc
+        [control]="valorGanarControl"
+        [error]="
+          registrationForm.get('valorGanar')!.invalid &&
+          registrationForm.get('valorGanar')!.touched
+        "
+      ></app-numberboxc>
+      <app-checkboxc [control]="casadoControl"></app-checkboxc>
+      <app-buttonc value="Registrar"></app-buttonc>
+    </form>
+  </div>
+</div>

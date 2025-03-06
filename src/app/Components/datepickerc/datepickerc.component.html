@@ -1,0 +1,14 @@
+<div>
+  <label for="" class="form-label">Fecha Nacimiento</label>
+  <mat-form-field style="width: 100%; height: 70px">
+    <input
+      matInput
+      [matDatepicker]="picker"
+      placeholder="Selecciona una fecha"
+      [formControl]="control"
+      [class.is-invalid]="error"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</div>
