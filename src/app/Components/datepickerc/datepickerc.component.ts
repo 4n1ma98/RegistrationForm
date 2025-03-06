@@ -10,4 +10,6 @@ import { FormControl } from '@angular/forms';
 export class DatepickercComponent {
   @Input() control: FormControl = new FormControl('');
   @Input() error: boolean = false;
+
+  maxDate: Date = new Date();
 }

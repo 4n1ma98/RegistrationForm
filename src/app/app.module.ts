@@ -13,6 +13,7 @@ import { FormcComponent } from './Components/formc/formc.component';
 import { MaincComponent } from './Components/mainc/mainc.component';
 import { NavbarcComponent } from './Components/navbarc/navbarc.component';
 import { NumberboxcComponent } from './Components/numberboxc/numberboxc.component';
+import { TablecComponent } from './Components/tablec/tablec.component';
 import { TextboxcComponent } from './Components/textboxc/textboxc.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,11 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import { AlertcComponent } from './Components/alertc/alertc.component';
 
 export const MY_DATE_FORMATS: MatDateFormats = {
   parse: { dateInput: 'DD/MM/YYYY' },
@@ -46,6 +52,8 @@ export const MY_DATE_FORMATS: MatDateFormats = {
     NavbarcComponent,
     NumberboxcComponent,
     TextboxcComponent,
+    TablecComponent,
+    AlertcComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +67,7 @@ export const MY_DATE_FORMATS: MatDateFormats = {
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    provideHttpClient(withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
 })

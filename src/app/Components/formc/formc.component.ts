@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators,
   FormControl,
 } from '@angular/forms';
+import { ServiceService } from '../../Services/service.service';
 
 @Component({
   selector: 'app-formc',
@@ -14,15 +15,33 @@ import {
 })
 export class FormcComponent {
   registrationForm: FormGroup;
+  @Output() userCreated = new EventEmitter<void>();
+  @Output() error = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder) {
+  constructor(private api: ServiceService, private fb: FormBuilder) {
     this.registrationForm = this.fb.group({
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       tipoDocumento: ['', Validators.required],
-      numDocumento: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      numDocumento: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.min(1),
+          Validators.max(2147483647),
+        ],
+      ],
       fechaNacimiento: ['', Validators.required],
-      valorGanar: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      valorGanar: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.min(1),
+          Validators.max(2147483647),
+        ],
+      ],
       casado: [false],
     });
   }
@@ -58,8 +77,39 @@ export class FormcComponent {
   onSubmit() {
     if (this.registrationForm.valid) {
       console.log(this.registrationForm.value);
+      const user = {
+        documentNumber: this.registrationForm.value.numDocumento,
+        firstName: this.registrationForm.value.nombres,
+        lastName: this.registrationForm.value.apellidos,
+        documentTypeId: this.registrationForm.value.tipoDocumento,
+        birthDate: this.registrationForm.value.fechaNacimiento,
+        maritalStatus: this.registrationForm.value.casado,
+        total: this.registrationForm.value.valorGanar,
+      };
+
+      this.api.createUser(user).subscribe({
+        next: (response: any) => {
+          console.log('User created:', response);
+          this.userCreated.emit();
+        },
+        error: (error: any) => {
+          this.error.emit('Error creating user: ' + error);
+        },
+        complete: () => {
+          console.log('Request completed');
+          this.registrationForm.reset({ casado: false });
+        },
+      });
     } else {
-      console.log('Form is invalid');
+      this.markAllAsTouched(this.registrationForm);
+      this.error.emit('Fields cannot be invalid');
     }
+  }
+
+  markAllAsTouched(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach((field) => {
+      const control = formGroup.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
   }
 }

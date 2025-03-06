@@ -1,0 +1,29 @@
+<div class="card my-3">
+  <div class="card-body">
+    <table class="table table-hover text-center m-0">
+      <thead>
+        <tr>
+          <th>Numero Documento</th>
+          <th>Tipo Documento</th>
+          <th>Nombre(s)</th>
+          <th>Apellidos</th>
+          <th>Fecha Nacimiento</th>
+          <th>Estado Civil</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of usersList">
+          <td>{{ item.documentNumber }}</td>
+          <td>{{ item.documentTypeId == 1 ? "CC" : "CE" }}</td>
+          <td>{{ item.firstName }}</td>
+          <td>{{ item.lastName }}</td>
+          <td>{{ item.birthDate }}</td>
+          <td>{{ item.maritalStatus == true ? "Casado/a" : "Soltero/a" }}</td>
+        </tr>
+        <tr *ngIf="usersList.length == 0">
+          <td colspan="6">No hay datos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
